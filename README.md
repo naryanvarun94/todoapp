@@ -1,14 +1,7 @@
-# My React App
+# ToDoList App
 
 This is a React project built with **TypeScript** and styled using **Material UI**.
 
-## 🚀 Features
-
-- ⚛️ React 18
-- 🔷 TypeScript
-- 🎨 Material UI (MUI v5)
-- 💡 Functional components with hooks
-- 🧱 Modular and scalable folder structure
 
 ## 📦 Installation
 
