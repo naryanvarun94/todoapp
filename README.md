@@ -17,7 +17,7 @@ Clone the repo and install dependencies:
 ```bash
 git clone https://github.com/naryanvarun94/todoapp.git
 branch - main
-cd your-repo-name
+cd todoapp
 npm install
 
 🧪 Running the App
