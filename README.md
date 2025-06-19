@@ -15,7 +15,8 @@ This is a React project built with **TypeScript** and styled using **Material UI
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone [https://github.com/your-username/your-repo-name.git](https://github.com/naryanvarun94/todoapp.git)
+branch - main
 cd your-repo-name
 npm install
 
