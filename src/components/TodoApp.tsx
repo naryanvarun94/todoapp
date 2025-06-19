@@ -1,13 +1,14 @@
 import {
     Box, Button, Typography, TextField, Dialog, DialogTitle,
     DialogContent, DialogActions, List, ListItem, ListItemText,
-    IconButton, Checkbox, Stack, Chip, ToggleButtonGroup, ToggleButton,
+    IconButton, Checkbox, Stack, ToggleButtonGroup, ToggleButton,
     Divider
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
+import clsx from 'clsx';
 import styles from './TodoApp.module.css';
 
 
@@ -66,22 +67,8 @@ const TodoApp: React.FC = () => {
     const itemsLeft = tasks.filter(task => !task.completed).length;
 
     return (
-        <Box
-            sx={{
-                width: '40vh',
-                height: '60vh',
-                borderRadius: 3,
-                backgroundColor: '#1f2937',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                color: 'white',
-                padding: 5,
-                flexGrow: 1,
-            }}
-
-        >
-            <Box><Typography variant="h4" textAlign="center" color="#00d1ff" gutterBottom>
+        <Box className={styles.todoContainer}>
+            <Box><Typography variant="h4" className={styles.headerTitle} gutterBottom>
                 Todo List App
             </Typography>
                 <Typography textAlign="center" color="gray" mb={2}>
@@ -149,7 +136,7 @@ const TodoApp: React.FC = () => {
                                 }
 
                                 disablePadding
-                                sx={{ bgcolor: '#374151', my: 1, borderRadius: 1 }}
+                                className={styles.taskItem}
                             >
                                 <Checkbox
                                     checked={task.completed}
@@ -158,10 +145,10 @@ const TodoApp: React.FC = () => {
                                 />
                                 <ListItemText
                                     primary={task.text}
-                                    sx={{
-                                        textDecoration: task.completed ? 'line-through' : 'none',
-                                        color: task.completed ? 'gray' : 'white'
-                                    }}
+                                    className={clsx({
+                                        [styles.taskCompleted]: task.completed,
+                                        [styles.taskText]: !task.completed,
+                                    })}
                                 />
                             </ListItem>
                         ))}
