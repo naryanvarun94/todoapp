@@ -1,7 +1,7 @@
 /* TodoApp.module.css */
 
 .todoContainer {
-    width: 40vh;
+    width: 50vh;
     height: 60vh;
     border-radius: 12px;
     background-color: #1f2937;
@@ -15,7 +15,7 @@
 
 .headerTitle {
     text-align: center;
-    color: #00d1ff;
+    color: #27cef0;
 }
 
 .headerSubtitle {
@@ -27,7 +27,7 @@
 .addButton {
     width: 100%;
     margin-bottom: 16px;
-    background-color: #2196f3;
+    background-color: #0ca5e9;
 }
 
 .taskSummary {

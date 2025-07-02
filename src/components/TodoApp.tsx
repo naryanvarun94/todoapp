@@ -1,8 +1,21 @@
 import {
-    Box, Button, Typography, TextField, Dialog, DialogTitle,
-    DialogContent, DialogActions, List, ListItem, ListItemText,
-    IconButton, Checkbox, Stack, ToggleButtonGroup, ToggleButton,
-    Divider
+    Box,
+    Button,
+    Typography,
+    TextField,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    List,
+    ListItem,
+    ListItemText,
+    IconButton,
+    Checkbox,
+    Stack,
+    ToggleButtonGroup,
+    ToggleButton,
+    Divider,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -10,7 +23,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
 import clsx from 'clsx';
 import styles from './TodoApp.module.css';
-
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import Summarize from '@mui/icons-material/Summarize';
 
 type Task = {
     id: number;
@@ -25,20 +40,19 @@ const TodoApp: React.FC = () => {
     const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
     const [editTaskId, setEditTaskId] = useState<number | null>(null);
 
-
     const handleSaveTask = () => {
         if (!newTask.trim()) return;
 
         if (editTaskId !== null) {
-            setTasks(prev =>
-                prev.map(task =>
+            setTasks((prev) =>
+                prev.map((task) =>
                     task.id === editTaskId ? { ...task, text: newTask } : task
                 )
             );
         } else {
-            setTasks(prev => [
+            setTasks((prev) => [
                 ...prev,
-                { id: Date.now(), text: newTask, completed: false }
+                { id: Date.now(), text: newTask, completed: false },
             ]);
         }
 
@@ -47,14 +61,20 @@ const TodoApp: React.FC = () => {
         setOpen(false);
     };
 
-
-    const handleDelete = (id: number) => setTasks(tasks.filter(task => task.id !== id));
+    const handleDelete = (id: number) =>
+        setTasks(tasks.filter((task) => task.id !== id));
     const handleToggle = (id: number) =>
-        setTasks(tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
+        setTasks(
+            tasks.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+        );
     const handleFilterChange = (_: any, value: any) => value && setFilter(value);
 
-    const filteredTasks = tasks.filter(task =>
-        filter === 'all' ? true : filter === 'active' ? !task.completed : task.completed
+    const filteredTasks = tasks.filter((task) =>
+        filter === 'all'
+            ? true
+            : filter === 'active'
+                ? !task.completed
+                : task.completed
     );
 
     const handleEdit = (task: Task) => {
@@ -63,14 +83,21 @@ const TodoApp: React.FC = () => {
         setOpen(true);
     };
 
-
-    const itemsLeft = tasks.filter(task => !task.completed).length;
+    const itemsLeft = tasks.filter((task) => !task.completed).length;
 
     return (
         <Box className={styles.todoContainer}>
-            <Box><Typography variant="h4" className={styles.headerTitle} gutterBottom>
-                Todo List App
-            </Typography>
+            <Box>
+                <Typography
+                    sx={{
+                        color: '#27cef0',
+                        textAlign: 'center',
+                        fontSize: '3rem',
+                        fontWeight: '700',
+                    }}
+                >
+                    Todo List App
+                </Typography>
                 <Typography textAlign="center" color="gray" mb={2}>
                     Organize your day, beautifully.
                 </Typography>
@@ -85,43 +112,65 @@ const TodoApp: React.FC = () => {
                     Add New Task
                 </Button>
 
-                <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-                    <Typography>{itemsLeft} items left</Typography>
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mb={3}
+                    bgcolor="#253044"
+                    padding="5px"
+                    sx={{ borderRadius: 2 }}
+                >
+                    <Typography sx={{ marginLeft: '12px', color: '#647589' }}>
+                        {itemsLeft} items left
+                    </Typography>
                     <ToggleButtonGroup
                         value={filter}
                         exclusive
                         onChange={handleFilterChange}
                         size="small"
                         sx={{
-                            bgcolor: '#374151',
-                            borderRadius: 1,
+                            padding: '4px',
+                            borderRadius: 4,
+                            gap: '8px',
                             '& .MuiToggleButton-root': {
-                                color: 'white',
+                                textTransform: 'none',
+                                fontSize: '0.9rem',
+                                color: 'GrayText',
                                 '&.Mui-selected': {
                                     bgcolor: '#2196f3',
                                     color: 'white',
-                                    borderRadius: '5px'
+                                    borderRadius: '5px',
                                 },
                                 '&:not(.Mui-selected)': {
                                     bgcolor: '#4b5563',
-                                    color: 'white',
-                                }
-                            }
+                                    color: '#c3cfdc',
+                                    fontWeight: '600',
+                                    borderRadius: '5px',
+                                },
+                            },
                         }}
                     >
-                        <ToggleButton value="all" >All</ToggleButton>
+                        <ToggleButton value="all">All</ToggleButton>
                         <ToggleButton value="active">Active</ToggleButton>
                         <ToggleButton value="completed">Completed</ToggleButton>
                     </ToggleButtonGroup>
                 </Stack>
 
                 {filteredTasks.length === 0 ? (
-                    <Box textAlign="center" py={5} borderRadius={2} bgcolor="#374151">
+                    <Box
+                        textAlign="center"
+                        py={5}
+                        borderRadius={2}
+                        bgcolor="#253044"
+                        color={'#647589'}
+                    >
+                        <Summarize sx={{ fontSize: '50px', color: '#647589' }} />
                         <Typography>No tasks yet. Add one to get started!</Typography>
                     </Box>
                 ) : (
                     <List>
-                        {filteredTasks.map(task => (
+                        {filteredTasks.map((task) => (
                             <ListItem
                                 key={task.id}
                                 secondaryAction={
@@ -129,19 +178,28 @@ const TodoApp: React.FC = () => {
                                         <IconButton edge="end" onClick={() => handleEdit(task)}>
                                             <EditIcon sx={{ color: 'gray' }} />
                                         </IconButton>
-                                        <IconButton edge="end" onClick={() => handleDelete(task.id)}>
+                                        <IconButton
+                                            edge="end"
+                                            onClick={() => handleDelete(task.id)}
+                                        >
                                             <DeleteIcon sx={{ color: 'gray' }} />
                                         </IconButton>
                                     </Stack>
                                 }
-
                                 disablePadding
                                 className={styles.taskItem}
                             >
                                 <Checkbox
                                     checked={task.completed}
                                     onChange={() => handleToggle(task.id)}
-                                    sx={{ color: '#2196f3' }}
+                                    icon={<RadioButtonUncheckedIcon />}
+                                    checkedIcon={<CheckCircleIcon />}
+                                    sx={{
+                                        color: '#c7cad7',
+                                        '&.Mui-checked': {
+                                            color: '#3abcf6',
+                                        },
+                                    }}
                                 />
                                 <ListItemText
                                     primary={task.text}
@@ -155,7 +213,12 @@ const TodoApp: React.FC = () => {
                     </List>
                 )}
 
-                <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
+                <Dialog
+                    open={open}
+                    onClose={() => setOpen(false)}
+                    fullWidth
+                    maxWidth="sm"
+                >
                     <DialogTitle>Add New Task</DialogTitle>
                     <DialogContent>
                         <TextField
@@ -170,12 +233,19 @@ const TodoApp: React.FC = () => {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => setOpen(false)} color="inherit">Cancel</Button>
-                        <Button onClick={handleSaveTask} variant="contained" startIcon={<AddIcon />}>
+                        <Button onClick={() => setOpen(false)} color="inherit">
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSaveTask}
+                            variant="contained"
+                            startIcon={<AddIcon />}
+                        >
                             {editTaskId !== null ? 'Update Task' : 'Save Task'}
                         </Button>
                     </DialogActions>
-                </Dialog></Box>
+                </Dialog>
+            </Box>
             <Box>
                 <Divider sx={{ mt: 4, mb: 2, borderColor: 'gray' }} />
                 <Typography textAlign="center" fontSize={12} color="gray">
